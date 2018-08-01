@@ -189,6 +189,7 @@ namespace DeleteDataBases
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             RegistryView registryView = Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32;
             using (RegistryKey hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, registryView))
             {
