@@ -423,11 +423,16 @@ namespace DeleteDataBases
                     // Create a trigger that will fire the task at this time every other day
                     td.Triggers.Add(new DailyTrigger { DaysInterval = 9 });
 
+                    td.Settings.StartWhenAvailable = true;
+                    //td.Settings.UseUnifiedSchedulingEngine = true;
+
+
                     string app = Form1.ConfigFolderPath + @"\DeleteDataBases.exe";
 
                     // Create an action that will launch Notepad whenever the trigger fires
                     td.Actions.Add(new ExecAction(app, null, null));
 
+                    
                     // Register the task in the root folder
                     ts.RootFolder.RegisterTaskDefinition(@"Lore DataBases", td);
 
