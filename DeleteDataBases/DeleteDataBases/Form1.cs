@@ -588,10 +588,12 @@ namespace DeleteDataBases
 
                 if (modification <= currentDateNow)
                 {
+                    DirectoryInfo di_ = new DirectoryInfo(directory.FullName);
+                    DirectoryInfo[] direc = di_.GetDirectories();
 
-                    foreach (FileInfo file in di.GetFiles())
+                    foreach (FileInfo file in di_.GetFiles())
                     {
-                        FileInfo _file = new FileInfo(di.FullName + @"\" + file);
+                        FileInfo _file = new FileInfo(di_.FullName + @"\" + file);
                         if (IsFileLocked(_file))
                         {
                             deletationErrorMessage += "- Ficheiro «" + file + "» em " + file.DirectoryName + Environment.NewLine;
@@ -610,11 +612,11 @@ namespace DeleteDataBases
                             deletationErrorMessage += "- Ficheiro «" + file + "» em " + file.DirectoryName + Environment.NewLine + Environment.NewLine;
                         }
                     }
-                    foreach (DirectoryInfo dir in di.GetDirectories())
+                    foreach (DirectoryInfo dir in direc)
                     {
                         try
                         {
-                            DeleteFileOrFolder(di + @"\" + dir);
+                            DeleteFileOrFolder(di_ + @"\" + dir);
                             //dir.Delete(true);
                             deletationSuccessMessage += "- Pasta «" + dir + "» em " + dir.FullName + Environment.NewLine + Environment.NewLine;
                         }
@@ -623,6 +625,7 @@ namespace DeleteDataBases
                             deletationErrorMessage += "- Pasta «" + dir + "» em " + dir.FullName + Environment.NewLine + Environment.NewLine;
                         }
                     }
+                    DeleteFileOrFolder(di + @"\" + directory);
                 }
             }
 
