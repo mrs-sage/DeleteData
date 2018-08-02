@@ -36,4 +36,3 @@ C:\Users\mrs\Source\Repos\CCSDeleteDataBases\DeleteDataBases\DeleteDataBases\obj
 C:\Users\mrs\Source\Repos\CCSDeleteDataBases\DeleteDataBases\DeleteDataBases\obj\x86\Debug\DeleteDataBases.csproj.CopyComplete
 C:\Users\mrs\Source\Repos\CCSDeleteDataBases\DeleteDataBases\DeleteDataBases\obj\x86\Debug\DeleteDataBases.exe
 C:\Users\mrs\Source\Repos\CCSDeleteDataBases\DeleteDataBases\DeleteDataBases\obj\x86\Debug\DeleteDataBases.pdb
-C:\Users\mrs\Source\Repos\CCSDeleteDataBases\DeleteDataBases\DeleteDataBases\obj\x86\Debug\DeleteDataBases.csprojAssemblyReference.cache
