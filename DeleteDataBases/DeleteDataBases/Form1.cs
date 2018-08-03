@@ -227,7 +227,7 @@ namespace DeleteDataBases
             }
 
             SetData();
-            
+
         }
 
         private void SetData()
@@ -243,13 +243,13 @@ namespace DeleteDataBases
                     string[] values = SqlInstance.Split('|');
                     foreach (var s in values)
                     {
-                        listBoxSQLInstance.Items.Add("- " + Environment.MachineName + @"\"+ s);
+                        listBoxSQLInstance.Items.Add("- " + Environment.MachineName + @"\" + s);
                     }
                 }
             }
             catch
             {
-                
+
             }
 
             var lastEliminationSQL = "";
@@ -273,7 +273,7 @@ namespace DeleteDataBases
             {
                 var TaskExist = FileLoadSettings.Read("TaskExist", "General");
 
-                if(TaskExist != "1")
+                if (TaskExist != "1")
                 {
                     CreateWindowsTask();
                 }
@@ -432,7 +432,7 @@ namespace DeleteDataBases
                     // Create an action that will launch Notepad whenever the trigger fires
                     td.Actions.Add(new ExecAction(app, null, null));
 
-                    
+
                     // Register the task in the root folder
                     ts.RootFolder.RegisterTaskDefinition(@"Lore DataBases", td);
 
@@ -458,6 +458,7 @@ namespace DeleteDataBases
         {
             string conString = "";
             bool error = true;
+            bool haveDataBases = false;
             string sqlInstance = "";
 
             var sqlInstanceID = 0;
@@ -486,9 +487,10 @@ namespace DeleteDataBases
                     {
                         using (IDataReader dr = cmd.ExecuteReader())
                         {
+                            error = false;
                             while (dr.Read())
                             {
-                                error = false;
+                                haveDataBases = true;
                             }
 
                         }
@@ -504,13 +506,20 @@ namespace DeleteDataBases
 
             if (!error)
             {
-                var FileWriteSettings = new IniFile(Form1.ConfigFilepath);
-                FileWriteSettings.Write("DefaultInstace", sqlInstanceID.ToString(), "SQL");
-                FileWriteSettings = null;
+                if (haveDataBases)
+                {
+                    var FileWriteSettings = new IniFile(Form1.ConfigFilepath);
+                    FileWriteSettings.Write("DefaultInstace", sqlInstanceID.ToString(), "SQL");
+                    FileWriteSettings = null;
 
-                FormDeleteSQLDataBases.ConnectionString = conString;
-                FormDeleteSQLDataBases formDeleteSQLDataBases = new FormDeleteSQLDataBases();
-                formDeleteSQLDataBases.ShowDialog();
+                    FormDeleteSQLDataBases.ConnectionString = conString;
+                    FormDeleteSQLDataBases formDeleteSQLDataBases = new FormDeleteSQLDataBases();
+                    formDeleteSQLDataBases.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Instância sem base de dados!");
+                }
             }
 
         }
@@ -715,8 +724,8 @@ namespace DeleteDataBases
             txtLog.Text = "";
             try
             {
-            var x = File.ReadAllText(file);
-            txtLog.Text = x;
+                var x = File.ReadAllText(file);
+                txtLog.Text = x;
             }
             catch
             {
@@ -746,7 +755,7 @@ namespace DeleteDataBases
 
         private void numericWeeks_ValueChanged(object sender, EventArgs e)
         {
-            
+
             var FileWriteSettings = new IniFile(ConfigFilepath);
             FileWriteSettings.Write("WeeksToDeleteLocalData", numericWeeks.Value.ToString(), "DataAnalysis");
             FileWriteSettings = null;
